@@ -1,10 +1,8 @@
-
 import logging
 from aiogram import Bot, Dispatcher, executor, types
 import os
 
-# Берём токен из переменных окружения (удобно для хостинга)
-API_TOKEN = os.getenv("7881272979:AAEKnpHPz5fT-XhBqJmopaNXOZjjeNDrdro")
+API_TOKEN = os.getenv("7881272979:AAEKnpHPz5fT-XhBqJmopaNXOZjjeNDrdro")  # Токен задаётся через переменные окружения
 
 logging.basicConfig(level=logging.INFO)
 
@@ -17,3 +15,4 @@ async def reply_da(message: types.Message):
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
+
