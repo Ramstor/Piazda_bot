@@ -12,9 +12,9 @@ bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
 # Хэндлер на "да" с любыми знаками и пробелами
-@dp.message_handler(lambda m: m.text and re.fullmatch(r"(?i)\s*да+\s*[!,.?…]*\s*", m.text.strip()))
+@dp.message_handler(lambda m: m.text and re.fullmatch(r"(?i)\s*да+\s*[),!,.?…]*\s*", m.text.strip()))
 async def reply_da(message: types.Message):
-    await message.reply("пизда")
+    await message.reply("пязда")
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
