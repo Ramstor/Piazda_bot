@@ -1,16 +1,18 @@
 import logging
-from aiogram import Bot, Dispatcher, executor, types
 import os
+import re
 
-# Берём токен из переменных окружения (удобно для хостинга)
-API_TOKEN = os.getenv("BOT_TOKEN", "7881272979:AAEKnpHPz5fT-XhBqJmopaNXOZjjeNDrdro")
+from aiogram import Bot, Dispatcher, executor, types
 
 logging.basicConfig(level=logging.INFO)
+
+API_TOKEN = os.getenv("BOT_TOKEN", "7881272979:AAEKnpHPz5fT-XhBqJmopaNXOZjjeNDrdro")
 
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-@dp.message_handler(lambda m: m.text and re.fullmatch(r"(?i)\bда+\b[!,.?…]*", m.text.strip()))
+# Хэндлер на "да" с любыми знаками и пробелами
+@dp.message_handler(lambda m: m.text and re.fullmatch(r"(?i)\s*да+\s*[!,.?…]*\s*", m.text.strip()))
 async def reply_da(message: types.Message):
     await message.reply("пизда")
 
