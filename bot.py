@@ -1,18 +1,30 @@
 import logging
-from aiogram import Bot, Dispatcher, executor, types
 import os
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters import Text
+from aiogram import F
 
-API_TOKEN = os.getenv("7881272979:AAEKnpHPz5fT-XhBqJmopaNXOZjjeNDrdro")  # Токен задаётся через переменные окружения
-
+# Логирование
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token=API_TOKEN)
-dp = Dispatcher(bot)
+# Берём токен из переменной окружения
+API_TOKEN = os.getenv("7881272979:AAEKnpHPz5fT-XhBqJmopaNXOZjjeNDrdro")
 
-@dp.message_handler(lambda message: message.text and message.text.strip().lower() == "да")
+# Создаём объекты
+bot = Bot(token=API_TOKEN)
+dp = Dispatcher()
+
+# Хэндлер на слово "да"
+@dp.message(F.text.lower() == "да")
 async def reply_da(message: types.Message):
     await message.reply("пизда")
 
+# Точка входа
+async def main():
+    await dp.start_polling(bot)
+
 if __name__ == "__main__":
-    executor.start_polling(dp, skip_updates=True)
+    import asyncio
+    asyncio.run(main())
+
 
