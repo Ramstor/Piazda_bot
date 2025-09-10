@@ -25,16 +25,18 @@ scheduler = AsyncIOScheduler(timezone=ZoneInfo(TIMEZONE))
 async def reply_da(message: types.Message):
     await message.reply("пязда")
     
-    def save_chat_id(chat_id: int):
-    CHAT_ID_FILE.write_text(str(chat_id))
+def save_chat_id(chat_id: int):
+    with open("chat_id.txt", "w", encoding="utf-8") as f:
+        f.write(str(chat_id))
 
 def load_chat_id() -> int | None:
-    if CHAT_ID_FILE.exists():
-        try:
-            return int(CHAT_ID_FILE.read_text().strip())
-        except Exception:
-            return None
-    return None
+    try:
+        with open("chat_id.txt", "r", encoding="utf-8") as f:
+            return int(f.read().strip())
+    except FileNotFoundError:
+        return None
+    except Exception:
+        return None
 
 async def send_good_morning():
     chat_id = load_chat_id()
