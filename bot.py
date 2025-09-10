@@ -10,9 +10,9 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-@dp.message(F.text.regexp(r"(?i)^да$"))
+@dp.message_handler(lambda message: message.text and message.text.lower() == "да")
 async def reply_da(message: types.Message):
-    await message.reply("пязда")
+    await message.reply("пизда")
 
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)
